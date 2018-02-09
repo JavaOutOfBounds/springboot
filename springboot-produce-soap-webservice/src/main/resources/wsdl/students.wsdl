@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions name="students" targetNamespace="http://www.javaoutofbounds.com"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.javaoutofbounds.com"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<!-- wsdl:types :: Defines the XML schema and data types used by the web 
+		service -->
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://www.javaoutofbounds.com">
+			<xsd:element name="helloStudentRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="inputName" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="helloStudentResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="outputResult" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+
+	<!-- wsdl:message :: Defines the data for input and output operation -->
+	<wsdl:message name="helloStudentRequest">
+		<wsdl:part element="tns:helloStudentRequest" name="requestPart" />
+	</wsdl:message>
+	<wsdl:message name="helloStudentResponse">
+		<wsdl:part element="tns:helloStudentResponse" name="responsePart" />
+	</wsdl:message>
+
+	<!-- wsdl:portType :: Defines input and output operations that can be performed 
+		with the service -->
+	<wsdl:portType name="students">
+		<wsdl:operation name="helloStudent">
+			<wsdl:input message="tns:helloStudentRequest" name="helloStudentRequest" />
+			<wsdl:output message="tns:helloStudentResponse" name="helloStudentResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<!-- wsdl:binding :: Defines the protocol and data format for each port 
+		type use="literal" -->
+	<wsdl:binding name="studentsEndpointBinding" type="tns:students">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="helloStudent">
+			<soap:operation soapAction="http://www.javaoutofbounds.com" />
+			<wsdl:input>
+				<soap:body parts="requestPart" use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body parts="responsePart" use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+
+	<!-- wsdl:service :: Defines service details -->
+	<wsdl:service name="studentEndpointService">
+		<wsdl:port binding="tns:studentsEndpointBinding" name="studentsEndpoint">
+			<soap:address location="http://localhost:8727/students/welcome" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
