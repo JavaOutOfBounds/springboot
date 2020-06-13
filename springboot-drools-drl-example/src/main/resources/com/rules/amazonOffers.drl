@@ -1,0 +1,37 @@
+package com.rules;
+import com.javaoutofbounds.application.drools.beans.Subscribe;
+
+rule "GooglePay"
+
+when
+$subscribe : Subscribe(clientName=="GooglePay" && offerName=="Amazon Prime" && sync==false);
+then
+$subscribe.setDiscountInPercentage(10);
+$subscribe.setSync(true);
+end;
+
+rule "PhonePay"
+when
+$subscribe : Subscribe(clientName=="PhonePay" && offerName=="Amazon Prime" && sync==false);
+then
+$subscribe.setDiscountInPercentage(10);
+$subscribe.setSync(true);
+end;
+
+rule "AmazonPay"
+
+when
+$subscribe : Subscribe(clientName=="AmazonPay" && offerName=="Amazon Prime" && sync==false);
+then
+$subscribe.setDiscountInPercentage(15);
+$subscribe.setSync(true);
+end;
+
+rule "AnyCreditCardPay"
+
+when
+$subscribe : Subscribe(clientName=="AnyCreditCardPay" && offerName=="Amazon Prime" && sync==false);
+then
+$subscribe.setDiscountInPercentage(5);
+$subscribe.setSync(true);
+end;
